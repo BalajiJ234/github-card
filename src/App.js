@@ -1,15 +1,29 @@
 import React from "react";
-import Card from "./components/Card";
+import CardList from "./components/CardList";
+import "./App.css";
+import Form from "./components/Form";
 
 class App extends React.Component {
-  //constructor
+  constructor(props) {
+    super(props);
+    this.state = {
+      profiles: [],
+    };
+  }
+
+  addNewProfile = (profileData) => {
+    this.setState((prevState) => ({
+      profiles: [...prevState.profiles, profileData],
+    }));
+  };
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <div className='header'>{this.props.title}</div>
-        <Card />
-      </div>
+        <Form onAdd={this.addNewProfile} />
+        <CardList profiles={this.state.profiles} />
+      </React.Fragment>
     );
   }
 }
